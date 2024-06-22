@@ -104,7 +104,7 @@ The Inspirational Homepage is a dynamic web application designed to provide user
 
 ## Contributing
 
-Feel free to fork the repository and submit pull requests. Contribuitions are welcome!
+Feel free to fork the repository and submit pull requests. Contributions are welcome!
 
 ## License
 
