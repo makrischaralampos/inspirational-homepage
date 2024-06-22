@@ -1,0 +1,38 @@
+.weather {
+  background-color: #2196f3;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  font-family: "Arial", sans-serif;
+}
+
+.weather:hover {
+  transform: scale(1.05);
+}
+
+.weather h2 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.weather p {
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+
+.weather .location {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.weather .temperature {
+  font-size: 2rem;
+}
+
+.weather .description {
+  font-style: italic;
+}

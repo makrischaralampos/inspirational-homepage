@@ -6,6 +6,7 @@ import {
   toggleGoalCompletion,
 } from "../slices/goalsSlice";
 import GoalItem from "./GoalItem";
+import "./Goals.css";
 
 const Goals = () => {
   const dispatch = useDispatch();
@@ -21,15 +22,17 @@ const Goals = () => {
 
   return (
     <div className="goals">
-      <h2>Goals</h2>
-      <input
-        type="text"
-        value={goalText}
-        onChange={(e) => setGoalText(e.target.value)}
-        placeholder="Enter a new goal"
-      />
-      <button onClick={handleAddGoal}>Add Goal</button>
-      <ul>
+      <h2>Goals for the Day</h2>
+      <div className="goal-input">
+        <input
+          type="text"
+          value={goalText}
+          onChange={(e) => setGoalText(e.target.value)}
+          placeholder="Write your goal"
+        />
+        <button onClick={handleAddGoal}>Add Goal</button>
+      </div>
+      <ul className="goal-list">
         {goals.map((goal) => (
           <GoalItem
             key={goal.id}

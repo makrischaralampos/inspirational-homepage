@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWeather } from "../slices/weatherSlice";
+import "./Weather.css";
 
 const Weather = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,9 @@ const Weather = () => {
   } else if (weather.status === "succeeded") {
     content = (
       <>
-        <p>{weather.data.location}</p>
-        <p>{weather.data.temperature}</p>
-        <p>{weather.data.description}</p>
+        <p className="location">{weather.data.location}</p>
+        <p className="temperature">{weather.data.temperature}</p>
+        <p className="description">{weather.data.description}</p>
       </>
     );
   } else if (weather.status === "failed") {

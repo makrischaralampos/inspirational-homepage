@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchQuote } from "../slices/quoteSlice";
+import "./Quote.css";
 
 const Quote = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,8 @@ const Quote = () => {
   } else if (quote.status === "succeeded") {
     content = (
       <>
-        <p>"{quote.text}"</p>
-        <p>- {quote.author}</p>
+        <p className="quote-text">"{quote.text}"</p>
+        <p className="quote-author">- {quote.author}</p>
       </>
     );
   } else if (quote.status === "failed") {

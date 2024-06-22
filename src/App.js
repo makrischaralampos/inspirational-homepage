@@ -12,12 +12,14 @@ import "./App.css";
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
+      <div className="app">
         <Header />
-        <Weather />
-        <ImageCarousel />
-        <Quote />
-        <Goals />
+        <main className="main-content">
+          <Weather />
+          <ImageCarousel />
+          <Quote />
+          <Goals />
+        </main>
         <Footer />
       </div>
     </Provider>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchImages, nextImage } from "../slices/imageSlice";
+import "./ImageCarousel.css";
 
 const ImageCarousel = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,14 @@ const ImageCarousel = () => {
   } else if (status === "succeeded") {
     content = (
       <>
-        <img src={images[currentIndex]} alt="Inspirational" />
-        <button onClick={() => dispatch(nextImage())}>Next Image</button>
+        <img
+          src={images[currentIndex]}
+          alt="Inspirational"
+          className="carousel-image"
+        />
+        <button className="next-button" onClick={() => dispatch(nextImage())}>
+          Next Image
+        </button>
       </>
     );
   } else if (status === "failed") {

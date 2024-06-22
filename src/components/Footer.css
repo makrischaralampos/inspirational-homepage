@@ -1,0 +1,22 @@
+.footer {
+  background-color: #333;
+  color: #f8f9fa;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  font-family: "Arial", sans-serif;
+  z-index: 1000;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.footer:hover {
+  background-color: #444;
+}

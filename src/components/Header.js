@@ -1,7 +1,8 @@
 import React from "react";
+import "./Header.css";
 
 const Header = () => (
-  <header>
+  <header className="header">
     <h1>Inspirational Homepage</h1>
   </header>
 );
