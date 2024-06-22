@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { nextImage } from "../slices/imageSlice";
+import { fetchImages, nextImage } from "../slices/imageSlice";
 
 const ImageCarousel = () => {
   const dispatch = useDispatch();
-  const { images, currentIndex } = useSelector((state) => state.images);
+  const { images, currentIndex, status, error } = useSelector(
+    (state) => state.images
+  );
+
+  useEffect(() => {
+    dispatch(fetchImages());
+  }, [dispatch]);
+
+  let content;
+
+  if (status === "loading") {
+    content = <p>Loading...</p>;
+  } else if (status === "succeeded") {
+    content = (
+      <>
+        <img src={images[currentIndex]} alt="Inspirational" />
+        <button onClick={() => dispatch(nextImage())}>Next Image</button>
+      </>
+    );
+  } else if (status === "failed") {
+    content = <p>{error}</p>;
+  }
 
   return (
     <div className="image-carousel">
       <h2>Inspirational Image</h2>
-      <img src={images[currentIndex]} alt="Inspirational" />
-      <button onClick={() => dispatch(nextImage())}>Next Image</button>
+      {content}
     </div>
   );
 };
