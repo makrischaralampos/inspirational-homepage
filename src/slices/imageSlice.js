@@ -1,17 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  images: [
+    "https://via.placeholder.com/800x400?text=Inspirational+Image+1",
+    "https://via.placeholder.com/800x400?text=Inspirational+Image+2",
+    "https://via.placeholder.com/800x400?text=Inspirational+Image+3",
+  ],
+  currentIndex: 0,
+};
+
 const imageSlice = createSlice({
-  name: "image",
-  initialState: {
-    data: null,
-    status: "idle",
-  },
+  name: "images",
+  initialState,
   reducers: {
-    setImage: (state, action) => {
-      state.data = action.payload;
+    nextImage: (state) => {
+      state.currentIndex = (state.currentIndex + 1) % state.images.length;
     },
   },
 });
 
-export const { setImage } = imageSlice.actions;
+export const { nextImage } = imageSlice.actions;
 export default imageSlice.reducer;

@@ -1,18 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const mockWeatherData = {
-  location: "San Francisco",
-  temperature: "20°C",
-  description: "sunny",
+const Weather = () => {
+  const weather = useSelector((state) => state.weather.data);
+
+  return (
+    <div className="weather">
+      <h2>Weather</h2>
+      <p>{weather.location}</p>
+      <p>{weather.temperature}</p>
+      <p>{weather.description}</p>
+    </div>
+  );
 };
-
-const Weather = () => (
-  <div className="weather">
-    <h2>Weather</h2>
-    <p>{mockWeatherData.location}</p>
-    <p>{mockWeatherData.temperature}</p>
-    <p>{mockWeatherData.description}</p>
-  </div>
-);
 
 export default Weather;

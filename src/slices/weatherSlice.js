@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  data: {
+    location: "San Francisco",
+    temperature: "20°C",
+    description: "Sunny",
+  },
+  status: "idle",
+};
+
 const weatherSlice = createSlice({
   name: "weather",
-  initialState: {
-    data: null,
-    status: "idle",
-  },
+  initialState,
   reducers: {
     setWeather: (state, action) => {
       state.data = action.payload;

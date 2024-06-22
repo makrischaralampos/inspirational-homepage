@@ -1,16 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const mockQuote = {
-  text: "The best way to predict the future is to create it.",
-  author: "Peter Drucker",
+const Quote = () => {
+  const quote = useSelector((state) => state.quote);
+
+  return (
+    <div className="quote">
+      <h2>Inspirational Quote</h2>
+      <p>"{quote.text}"</p>
+      <p>- {quote.author}</p>
+    </div>
+  );
 };
-
-const Quote = () => (
-  <div className="quote">
-    <h2>Inspirational Quote</h2>
-    <p>"{mockQuote.text}"</p>
-    <p>- {mockQuote.author}</p>
-  </div>
-);
 
 export default Quote;
