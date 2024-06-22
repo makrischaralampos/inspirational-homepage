@@ -1,20 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = {
-  text: "The best way to predict the future is to create it.",
-  author: "Peter Drucker",
-};
+const API_URL = "https://api.quotable.io/random";
+
+export const fetchQuote = createAsyncThunk("quote/fetchQuote", async () => {
+  const response = await axios.get(API_URL);
+  return response.data;
+});
 
 const quoteSlice = createSlice({
   name: "quote",
-  initialState,
-  reducers: {
-    setQuote: (state, action) => {
-      state.text = action.payload.text;
-      state.author = action.payload.author;
-    },
+  initialState: {
+    text: "",
+    author: "",
+    status: "idle",
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchQuote.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchQuote.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.text = action.payload.content;
+        state.author = action.payload.author;
+      })
+      .addCase(fetchQuote.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
-export const { setQuote } = quoteSlice.actions;
 export default quoteSlice.reducer;
