@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# Inspirational Homepage
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Purpose of the Project
 
-## Available Scripts
+The Inspirational Homepage is a dynamic web application designed to provide users with an uplifting and motivational start to their day. It combines current weather information, beautiful background images, inspirational quotes, and a space for users to write and manage their daily goals. This app serves as a fancy to-do list with added features to inspire and organize users.
 
-In the project directory, you can run:
+## Technologies Used
 
-### `npm start`
+- **Frontend**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - React: For building the user interface.
+  - Redux: For state management.
+  - CSS: For styling the components.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **APIs**:
 
-### `npm test`
+  - OpenWeather API: For fetching current weather data.
+  - Quotable API: For fetching inspirational quotes.
+  - Unsplash API: For fetching beautiful background images.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Deployment**:
+  - Netlify: For deploying the application and making it accessible online.
+  - Git & GitHub: For version control and code hosting.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Current Weather**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - Displays the current weather information for the user's location.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Inspirational Images**:
 
-### `npm run eject`
+  - Shows a beautiful background image fetched from Unsplash.
+  - Allows users to cycle through multiple fetched images.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Inspirational Quotes**:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - Displays a new inspirational quote each time the page is refreshed.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Goals Management**:
+  - Users can write down their goals for the day.
+  - Users can mark goals as complete.
+  - Users can delete goals.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Future Work
 
-## Learn More
+- **User Authentication**:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  - Allow users to create accounts and log in to save their goals and preferences.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Customizable Backgrounds**:
 
-### Code Splitting
+  - Let users upload their own background images or choose from different categories.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Weather Forecast**:
 
-### Analyzing the Bundle Size
+  - Provide a weather forecast for the upcoming days.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Daily Reminders**:
 
-### Making a Progressive Web App
+  - Implement a reminder feature to notify users on their goals.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Enhanced UI/UX**:
+  - Continuously improve the user interface and experience based on user feedback and best practices.
 
-### Advanced Configuration
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Prerequisites
 
-### Deployment
+- Node.js and npm installed on your local machine.
+- A GitHub account.
+- API keys for OpenWeather, Quotable, and Unsplash.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Installation
 
-### `npm run build` fails to minify
+1. Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   git clone https://github.com/makrischaralampos/inspirational-homepage.git
+   cd inspirational-homepage
+   ```
+
+2. Install depedencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory and add your API keys:
+
+   ```
+   REACT_APP_WEATHER_API_KEY=your_openweather_api_key
+   REACT_APP_QUOTES_API_KEY=your_quotes_api_key
+   REACT_APP_UNSPLASH_API_KEY=your_unsplash_api_key
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+
+## Contributing
+
+Feel free to fork the repository and submit pull requests. Contribuitions are welcome!
+
+## License
+
+This project is licensed under the MIT License.
