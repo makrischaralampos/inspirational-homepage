@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const ACCESS_KEY = "tbjj1E90RXIUI55XstDby43TpZKbBojc4wfzX5VZBWU";
+const ACCESS_KEY = process.env.REACT_APP_UNSPLASH_API_KEY;
 const API_URL = `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}&count=10`;
 
 export const fetchImages = createAsyncThunk("images/fetchImages", async () => {
