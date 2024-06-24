@@ -1,38 +1,25 @@
 .weather {
-  background-color: #2196f3;
-  color: white;
-  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  font-family: "Arial", sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .weather:hover {
-  transform: scale(1.05);
-}
-
-.weather h2 {
-  margin-bottom: 15px;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-}
-
-.weather p {
-  margin: 5px 0;
-  font-size: 1.2rem;
-}
-
-.weather .location {
-  font-weight: bold;
-  font-size: 1.5rem;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .weather .temperature {
-  font-size: 2rem;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .weather .description {
-  font-style: italic;
+  font-size: 1.2em;
+  margin-top: 10px;
 }

@@ -25,9 +25,11 @@ const ImageCarousel = () => {
           alt="Inspirational"
           className="carousel-image"
         />
-        <button className="next-button" onClick={() => dispatch(nextImage())}>
-          Next Image
-        </button>
+        <div className="carousel-controls">
+          <button className="next-button" onClick={() => dispatch(nextImage())}>
+            Next Image
+          </button>
+        </div>
       </>
     );
   } else if (status === "failed") {
