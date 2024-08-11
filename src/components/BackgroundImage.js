@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { nextImage } from "../features/backgroundImageSlice";
 
-const BackgroundImage = ({ images }) => {
-  const [currentImage, setCurrentImage] = useState(0);
+const BackgroundImage = () => {
+  const dispatch = useDispatch();
+  const { images, currentImageIndex } = useSelector(
+    (state) => state.backgroundImage
+  );
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
+  const handleNextImage = () => {
+    dispatch(nextImage());
   };
 
   return (
     <div
       className="background-image"
-      style={{ backgroundImage: `url(${images[currentImage].url})` }}
+      style={{ backgroundImage: `url(${images[currentImageIndex].url})` }}
     >
-      <button onClick={nextImage}>Next Image</button>
-      <p>{images[currentImage].description}</p>
+      <button onClick={handleNextImage}>Next Image</button>
+      <p>{images[currentImageIndex].description}</p>
     </div>
   );
 };
