@@ -1,24 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { nextImage } from "../features/backgroundImageSlice";
+import { fetchBackgroundImage } from "../features/backgroundImageSlice";
 
 const BackgroundImage = () => {
   const dispatch = useDispatch();
-  const { images, currentImageIndex } = useSelector(
+  const { images, currentImageIndex, status, error } = useSelector(
     (state) => state.backgroundImage
   );
 
+  useEffect(() => {
+    dispatch(fetchBackgroundImage()); // Fetch the first background image
+  }, [dispatch]);
+
   const handleNextImage = () => {
-    dispatch(nextImage());
+    if (status !== "loading") {
+      dispatch(fetchBackgroundImage()); // Fetch the next image
+    }
   };
+
+  if (status === "loading" && images.length === 0) {
+    return <div className="background-image">Loading background image...</div>;
+  }
+
+  if (status === "failed") {
+    return <div className="background-image">Error: {error}</div>;
+  }
 
   return (
     <div
       className="background-image"
-      style={{ backgroundImage: `url(${images[currentImageIndex].url})` }}
+      style={{
+        backgroundImage: `url(${images[currentImageIndex]?.url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+      }}
     >
-      <button onClick={handleNextImage}>Next Image</button>
-      <p>{images[currentImageIndex].description}</p>
+      <button onClick={handleNextImage} disabled={status === "loading"}>
+        Next Image
+      </button>
+      <p>{images[currentImageIndex]?.description}</p>
     </div>
   );
 };
