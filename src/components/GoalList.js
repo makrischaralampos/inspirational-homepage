@@ -1,9 +1,10 @@
 import React from "react";
+import List from "@mui/material/List";
 import GoalItem from "./GoalItem";
 
 const GoalList = ({ goals, deleteGoal, toggleComplete }) => {
   return (
-    <ul className="goal-list">
+    <List sx={{ mt: 2 }}>
       {goals.map((goal) => (
         <GoalItem
           key={goal.id}
@@ -12,7 +13,7 @@ const GoalList = ({ goals, deleteGoal, toggleComplete }) => {
           toggleComplete={toggleComplete}
         />
       ))}
-    </ul>
+    </List>
   );
 };
 

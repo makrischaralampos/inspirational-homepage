@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import GoalInput from "./GoalInput";
 import GoalList from "./GoalList";
 import { addGoal, deleteGoal, toggleComplete } from "../features/goalsSlice";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
 const Goals = () => {
   const goals = useSelector((state) => state.goals.goals);
@@ -21,15 +23,17 @@ const Goals = () => {
   };
 
   return (
-    <div className="goals">
-      <h2>Today's Goals</h2>
+    <Paper sx={{ p: 2 }}>
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Today's Goals
+      </Typography>
       <GoalInput addGoal={handleAddGoal} />
       <GoalList
         goals={goals}
         deleteGoal={handleDeleteGoal}
         toggleComplete={handleToggleComplete}
       />
-    </div>
+    </Paper>
   );
 };
 

@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchWeather } from "../features/weatherSlice";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const Weather = () => {
   const dispatch = useDispatch();
@@ -12,26 +15,46 @@ const Weather = () => {
   }, [dispatch]);
 
   if (status === "loading") {
-    return <div className="weather">Loading weather data...</div>;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   if (status === "failed") {
-    return <div className="weather">Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
-    <div className="weather">
-      <h2>Current Weather</h2>
-      {temperature !== null ? (
-        <>
-          <p>Temperature: {temperature}°F</p>
-          <p>Condition: {condition}</p>
-          <img src={icon} alt={condition} />
-        </>
-      ) : (
-        <p>No weather data available.</p>
-      )}
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        textAlign: "center",
+        padding: 2,
+        "@media (max-width: 768px)": {
+          padding: 1,
+          fontSize: "0.8rem",
+        },
+      }}
+    >
+      <Typography variant="h6">
+        The current temperature is {temperature}°C
+      </Typography>
+      <Typography variant="body1">{condition}</Typography>
+      <img src={icon} alt={condition} />
+    </Box>
   );
 };
 
