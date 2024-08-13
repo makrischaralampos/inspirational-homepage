@@ -100,8 +100,13 @@ const Weather = () => {
         value={cityInput}
         onChange={handleCityInputChange}
         sx={{ mb: 2 }}
+        aria-label="Enter City Name"
       />
-      <Button variant="contained" onClick={handleCitySubmit}>
+      <Button
+        variant="contained"
+        onClick={handleCitySubmit}
+        aria-label="Submit City Name"
+      >
         Get Weather
       </Button>
       {data ? (
