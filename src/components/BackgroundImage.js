@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackgroundImage } from "../features/backgroundImageSlice";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "../App.css";
 
 const BackgroundImage = () => {
   const dispatch = useDispatch();
   const { images, currentImageIndex, status, error } = useSelector(
     (state) => state.backgroundImage
+  );
+  const [favorites, setFavorites] = useState(
+    () => JSON.parse(localStorage.getItem("favorites")) || []
   );
 
   useEffect(() => {
@@ -21,6 +27,17 @@ const BackgroundImage = () => {
     if (status !== "loading") {
       dispatch(fetchBackgroundImage()); // Fetch the next image
     }
+  };
+
+  const toggleFavorite = (image) => {
+    let updatedFavorites = [];
+    if (favorites.find((fav) => fav.url === image.url)) {
+      updatedFavorites = favorites.filter((fav) => fav.url !== image.url);
+    } else {
+      updatedFavorites = [...favorites, image];
+    }
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   if (status === "loading" && images.length === 0) {
@@ -43,11 +60,13 @@ const BackgroundImage = () => {
     return <div className="background-image">Error: {error}</div>;
   }
 
+  const currentImage = images[currentImageIndex];
+
   return (
     <Box
       className="background-image"
       sx={{
-        backgroundImage: `url(${images[currentImageIndex]?.url})`,
+        backgroundImage: `url(${currentImage?.url})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "50vh",
@@ -74,9 +93,20 @@ const BackgroundImage = () => {
       >
         Next Image
       </Button>
-      <Typography variant="body1">
-        {images[currentImageIndex]?.description}
+      <Typography variant="body1" sx={{ textAlign: "center" }}>
+        {currentImage?.description}
       </Typography>
+      <IconButton
+        color="secondary"
+        onClick={() => toggleFavorite(currentImage)}
+        sx={{ mt: 2 }}
+      >
+        {favorites.find((fav) => fav.url === currentImage?.url) ? (
+          <FavoriteIcon />
+        ) : (
+          <FavoriteBorderIcon />
+        )}
+      </IconButton>
     </Box>
   );
 };

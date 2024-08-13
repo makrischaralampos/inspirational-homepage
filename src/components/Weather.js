@@ -1,18 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchWeather } from "../features/weatherSlice";
+import {
+  fetchWeatherByCoords,
+  fetchWeatherByCity,
+  setLocation,
+} from "../features/weatherSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Weather = () => {
+  const [cityInput, setCityInput] = useState("");
   const dispatch = useDispatch();
   const weather = useSelector((state) => state.weather);
-  const { temperature, condition, icon, status, error } = weather;
 
+  const { data, status, error, location } = weather;
+
+  // Fetch weather data based on the user's coordinates if no location is set
   useEffect(() => {
-    dispatch(fetchWeather("New York")); // Fetch weather for a default city
-  }, [dispatch]);
+    if (!location) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            dispatch(fetchWeatherByCoords({ latitude, longitude }));
+          },
+          (error) => {
+            console.error("Error fetching geolocation:", error);
+            dispatch(fetchWeatherByCity("New York")); // Fallback to a default city
+          }
+        );
+      } else {
+        dispatch(fetchWeatherByCity("New York")); // Fallback to a default city
+      }
+    } else {
+      dispatch(fetchWeatherByCity(location));
+    }
+  }, [dispatch, location]);
+
+  const handleCityInputChange = (e) => {
+    setCityInput(e.target.value);
+  };
+
+  const handleCitySubmit = (e) => {
+    e.preventDefault();
+    if (cityInput.trim()) {
+      dispatch(setLocation(cityInput.trim()));
+      setCityInput("");
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -49,11 +87,25 @@ const Weather = () => {
         },
       }}
     >
-      <Typography variant="h6">
-        The current temperature is {temperature}°C
-      </Typography>
-      <Typography variant="body1">{condition}</Typography>
-      <img src={icon} alt={condition} />
+      <TextField
+        label="Enter City"
+        variant="outlined"
+        value={cityInput}
+        onChange={handleCityInputChange}
+        sx={{ mb: 2 }}
+      />
+      <Button variant="contained" onClick={handleCitySubmit}>
+        Get Weather
+      </Button>
+      {data ? (
+        <>
+          <Typography variant="h6">Weather in {data.name}</Typography>
+          <Typography variant="body1">{data.weather[0].description}</Typography>
+          <Typography variant="body1">{data.main.temp}°C</Typography>
+        </>
+      ) : (
+        <Typography variant="body1">No weather data available</Typography>
+      )}
     </Box>
   );
 };
