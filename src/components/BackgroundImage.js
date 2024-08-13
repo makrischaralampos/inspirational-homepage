@@ -23,6 +23,16 @@ const BackgroundImage = () => {
     dispatch(fetchBackgroundImage()); // Fetch the first background image
   }, [dispatch]);
 
+  // Auto-cycle background images every 10 seconds
+  useEffect(() => {
+    const cycleInterval = setInterval(() => {
+      handleNextImage();
+    }, 10000);
+
+    return () => clearInterval(cycleInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentImageIndex]);
+
   const handleNextImage = () => {
     if (status !== "loading") {
       dispatch(fetchBackgroundImage()); // Fetch the next image
