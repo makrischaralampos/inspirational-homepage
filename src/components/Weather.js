@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import _ from "lodash";
 
 const Weather = () => {
   const [cityInput, setCityInput] = useState("");
@@ -17,6 +18,11 @@ const Weather = () => {
   const weather = useSelector((state) => state.weather);
 
   const { data, status, error, location } = weather;
+
+  // Debounce the API call to avoid too many requests]
+  const debouncedFetchWeather = _.debounce((city) => {
+    dispatch(fetchWeatherByCity(city));
+  }, 500);
 
   // Fetch weather data based on the user's coordinates if no location is set
   useEffect(() => {
@@ -36,8 +42,9 @@ const Weather = () => {
         dispatch(fetchWeatherByCity("New York")); // Fallback to a default city
       }
     } else {
-      dispatch(fetchWeatherByCity(location));
+      debouncedFetchWeather(location);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, location]);
 
   const handleCityInputChange = (e) => {

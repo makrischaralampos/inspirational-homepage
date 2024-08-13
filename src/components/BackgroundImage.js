@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import LazyLoad from "react-lazyload";
 import "../App.css";
 
 const BackgroundImage = () => {
@@ -73,51 +74,53 @@ const BackgroundImage = () => {
   const currentImage = images[currentImageIndex];
 
   return (
-    <Box
-      className="background-image"
-      sx={{
-        backgroundImage: `url(${currentImage?.url})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "50vh",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        padding: 3,
-        color: "#fff",
-        textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
-        "@media (max-width: 768px)": {
-          padding: 2,
-          justifyContent: "center",
-        },
-      }}
-    >
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleNextImage}
-        disabled={status === "loading"}
-        sx={{ mb: 2 }}
+    <LazyLoad height={200} offset={100} once>
+      <Box
+        className="background-image"
+        sx={{
+          backgroundImage: `url(${currentImage?.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "50vh",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          padding: 3,
+          color: "#fff",
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
+          "@media (max-width: 768px)": {
+            padding: 2,
+            justifyContent: "center",
+          },
+        }}
       >
-        Next Image
-      </Button>
-      <Typography variant="body1" sx={{ textAlign: "center" }}>
-        {currentImage?.description}
-      </Typography>
-      <IconButton
-        color="secondary"
-        onClick={() => toggleFavorite(currentImage)}
-        sx={{ mt: 2 }}
-      >
-        {favorites.find((fav) => fav.url === currentImage?.url) ? (
-          <FavoriteIcon />
-        ) : (
-          <FavoriteBorderIcon />
-        )}
-      </IconButton>
-    </Box>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleNextImage}
+          disabled={status === "loading"}
+          sx={{ mb: 2 }}
+        >
+          Next Image
+        </Button>
+        <Typography variant="body1" sx={{ textAlign: "center" }}>
+          {currentImage?.description}
+        </Typography>
+        <IconButton
+          color="secondary"
+          onClick={() => toggleFavorite(currentImage)}
+          sx={{ mt: 2 }}
+        >
+          {favorites.find((fav) => fav.url === currentImage?.url) ? (
+            <FavoriteIcon />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
+        </IconButton>
+      </Box>
+    </LazyLoad>
   );
 };
 
