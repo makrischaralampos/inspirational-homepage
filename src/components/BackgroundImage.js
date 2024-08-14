@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackgroundImage } from "../features/backgroundImageSlice";
 import { CircularProgress } from "@mui/material";
@@ -24,6 +24,13 @@ const BackgroundImage = () => {
     dispatch(fetchBackgroundImage()); // Fetch the first background image
   }, [dispatch]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleNextImage = useCallback(() => {
+    if (status !== "loading") {
+      dispatch(fetchBackgroundImage()); // Fetch the next image
+    }
+  });
+
   // Auto-cycle background images every 10 seconds
   useEffect(() => {
     const cycleInterval = setInterval(() => {
@@ -31,14 +38,7 @@ const BackgroundImage = () => {
     }, 10000);
 
     return () => clearInterval(cycleInterval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentImageIndex]);
-
-  const handleNextImage = () => {
-    if (status !== "loading") {
-      dispatch(fetchBackgroundImage()); // Fetch the next image
-    }
-  };
+  }, [currentImageIndex, handleNextImage]);
 
   const toggleFavorite = (image) => {
     let updatedFavorites = [];

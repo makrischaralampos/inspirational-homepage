@@ -1,51 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchWeatherByCoords,
-  fetchWeatherByCity,
-  setLocation,
-} from "../features/weatherSlice";
+import React, { useState } from "react";
+import useWeather from "../hooks/useWeather";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import _ from "lodash";
 
 const Weather = () => {
   const [cityInput, setCityInput] = useState("");
-  const dispatch = useDispatch();
-  const weather = useSelector((state) => state.weather);
-
-  const { data, status, error, location } = weather;
-
-  // Debounce the API call to avoid too many requests]
-  const debouncedFetchWeather = _.debounce((city) => {
-    dispatch(fetchWeatherByCity(city));
-  }, 500);
-
-  // Fetch weather data based on the user's coordinates if no location is set
-  useEffect(() => {
-    if (!location) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            dispatch(fetchWeatherByCoords({ latitude, longitude }));
-          },
-          (error) => {
-            console.error("Error fetching geolocation:", error);
-            dispatch(fetchWeatherByCity("New York")); // Fallback to a default city
-          }
-        );
-      } else {
-        dispatch(fetchWeatherByCity("New York")); // Fallback to a default city
-      }
-    } else {
-      debouncedFetchWeather(location);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, location]);
+  const { data, status, error, setLocation } = useWeather();
 
   const handleCityInputChange = (e) => {
     setCityInput(e.target.value);
@@ -54,7 +17,7 @@ const Weather = () => {
   const handleCitySubmit = (e) => {
     e.preventDefault();
     if (cityInput.trim()) {
-      dispatch(setLocation(cityInput.trim()));
+      setLocation(cityInput.trim());
       setCityInput("");
     }
   };
