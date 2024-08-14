@@ -88,12 +88,12 @@ git push origin feature-name
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](/LICENSE) file for details.
 
 ## Issues & Feature Requests
 
-If you encounter any issues or have ideas for new features, please open an issue on GitHub.
+If you encounter any issues or have ideas for new features, please [open an issue](https://github.com/makrischaralampos/inspirational-homepage/issues) on GitHub.
 
 ## Contact
 
-For any questions, feel free to reach out to me via email at mcshooter23@gmail.com.
+For any questions, feel free to reach out to me via email at [mcshooter23@gmail.com](mailto:mchsooter23@gmail.com).
